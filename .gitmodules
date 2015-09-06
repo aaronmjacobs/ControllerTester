@@ -1,0 +1,3 @@
+[submodule "dependencies/Shiny"]
+	path = dependencies/Shiny
+	url = https://github.com/aaronmjacobs/Shiny.git
