@@ -20,7 +20,7 @@ public:
 
 void TestEngine::tick(const float dt) {
    SPtr<const Controller> controller(getController(0));
-   if (!controller) {
+   if (!controller->connected()) {
       return;
    }
 
