@@ -117,8 +117,9 @@ set(BUILD_SHARED_LIBS ON CACHE INTERNAL "Build shared libraries")
 set(SHINY_DIR "${DEP_DIR}/Shiny")
 set(SHINY_LOG_INTERNAL OFF CACHE INTERNAL "Enable Shiny internal logging")
 add_subdirectory(${SHINY_DIR})
-attach_lib("${SHINY_INCLUDE_DIRS}" "" "Shiny")
-add_definitions(-DSHINY_DLL)
+attach_lib("${SHINY_INCLUDE_DIRS}" "" "${SHINY_TARGET}")
+add_definitions(${SHINY_DEFINITIONS})
+list(APPEND COPY_LIBS ${SHINY_SHARED_LIBS})
 
 ### Building ###
 
@@ -130,3 +131,14 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 # Link
 target_link_libraries(${PROJECT_NAME} ${LIBS})
+
+### Post-Build ###
+
+# Copy DLLs
+if(WIN32)
+   foreach(COPY_LIB ${COPY_LIBS})
+      add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+         COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:${COPY_LIB}>" "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
+      )
+   endforeach(COPY_LIB)
+endif(WIN32)
