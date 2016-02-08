@@ -115,7 +115,6 @@ set(BUILD_SHARED_LIBS ON CACHE INTERNAL "Build shared libraries")
 
 # Shiny
 set(SHINY_DIR "${DEP_DIR}/Shiny")
-set(SHINY_LOG_INTERNAL OFF CACHE INTERNAL "Enable Shiny internal logging")
 add_subdirectory(${SHINY_DIR})
 attach_lib("${SHINY_INCLUDE_DIRS}" "" "${SHINY_TARGET}")
 add_definitions(${SHINY_DEFINITIONS})

@@ -1,5 +1,4 @@
 #include <Shiny/Engine.h>
-#include <Shiny/GLIncludes.h>
 #include <Shiny/Log.h>
 #include <Shiny/Shiny.h>
 
@@ -119,11 +118,11 @@ int main(int argc, char *argv[]) {
    {
       TestEngine engine;
 
-      Shiny::Result startResult = engine.startUp(100, 100, "Controller Tester");
-      if (startResult == Shiny::Result::kOK) {
+      Shiny::Engine::Result startResult = engine.startUp(100, 100, "Controller Tester");
+      if (startResult == Shiny::Engine::Result::kOK) {
          engine.run();
       } else {
-         LOG_ERROR(Shiny::errorString(startResult));
+         LOG_ERROR(Shiny::Engine::errorString(startResult));
          retVal = EXIT_FAILURE;
       }
    }
